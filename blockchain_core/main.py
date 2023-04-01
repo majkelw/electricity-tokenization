@@ -1,54 +1,14 @@
-from typing import NamedTuple
 import datetime
 import pickle
 from enum import Enum
 from prettytable import PrettyTable
 import hashlib
 
-class InitializeOpt(Enum):
-    BASED = 0
-    SOURCE = 1
-    
-    @classmethod
-    def has_value(cls, value):
-        return value in cls._value2member_map_
-
-class poolParam(Enum):
-    SEND = 0
-    nTOKEN = 1
-    dTOKEN = 2
-    nUSER = 3
-    dUSER = 4
-    NOTHING = 5
-    
-    @classmethod
-    def has_value(cls, value):
-        return value in cls._value2member_map_
+from parameters import *
+from blockchain_struct import *
 
 HASH = '0000000000000000000000000000000000000000000000000000000000000000'
 
-class Errors(Enum):
-    STATE_OK = 0
-    END_OF_BLOCKS = 1
-    INCONSISTENT_POOL_PARAM = 2
-    INCONSISTENT_HASH_LEN = 3
-
-class Pool(NamedTuple):
-    id_1: str
-    param: poolParam
-    id_2: str
-    amount: int
-    time: str
-    id_3: str
-
-class Block(NamedTuple):
-    beginHash: str
-    endHash: str
-    pools: list
-
-class BlockChain(NamedTuple):
-    blocks: list
-    
 class BlockChainCore():
     def __init__(self, num_of_pools_, dir_to_blocks_, state):
         self.num_of_pools = num_of_pools_
@@ -166,15 +126,9 @@ def main():
     my_item2 = Pool(HASH, poolParam.SEND.value, HASH, 1, str(now), HASH)
         
     blockChainCore = BlockChainCore(2, "", InitializeOpt.SOURCE)
-    blockChainCore.add_pool(my_item)
+    #blockChainCore.add_pool(my_item)
     
     blockChainCore.print_blocks()
-    #blockChainCore.print_block(0)
-    #blockChainCore.print_block(1)
-    #blockChainCore.print_block(2)
-
-    #blockChainCore.autosave_block()
-    #print(blockChainCore.calculate_new_HASH())
 
 if __name__ == "__main__":
     main()
