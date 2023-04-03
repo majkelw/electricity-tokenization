@@ -14,7 +14,7 @@ class Block(NamedTuple):
     DIR_TO_BLOCKS = "../BLOCKS/"
     FILE_NAME_PREF = "BLOCK"
 
-    BlockStats = Enum('BlockStats', ['STATE_OK', 'UNABLE_TO_OPEN', 'NOT_FOUND', 'UNABLE_TO_SAVE', 'ADD_POOL', 'BLOCK_FULL'])
+    BlockStats = Enum('BlockStats', ['STATE_OK', 'UNABLE_TO_OPEN', 'NOT_FOUND', 'UNABLE_TO_SAVE', 'ADD_POOL', 'BLOCK_FULL', 'POOL_NOT_EXIST'])
     HASH_TEMPLATE = '0000000000000000000000000000000000000000000000000000000000000000'
     NUMBER_OF_POOLS = 2
 
@@ -74,4 +74,11 @@ class Block(NamedTuple):
 
         str_ += "\nEnd HASH: " + block.endHash + "\n\n" 
         return (self.BlockStats.STATE_OK, str_)
+        
+    @classmethod
+    def get_pool(self, pool_id, block):
+        if pool_id <= len(block.pools) - 1:
+            return (self.BlockStats.STATE_OK, block.pools[pool_id])
+        else:
+            return (self.BlockStats.POOL_NOT_EXIST, None)
 
