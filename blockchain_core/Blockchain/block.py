@@ -24,7 +24,7 @@ class Block(NamedTuple):
     def construct(self):
         now = datetime.datetime.now()
         state, empty_pool = Pool.construct(self.HASH_TEMPLATE, poolParam.NOTHING.value, self.HASH_TEMPLATE, 0, str(now), self.HASH_TEMPLATE)
-        block = Block(self.HASH_TEMPLATE, self.HASH_TEMPLATE, [empty_pool for i in range(0, self.NUMBER_OF_POOLS)])       
+        block = Block(self.HASH_TEMPLATE, self.HASH_TEMPLATE, [empty_pool])       
         return (self.BlockStats.STATE_OK, block)
 
     @classmethod

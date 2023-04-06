@@ -47,7 +47,9 @@ class Blockchain():
             Block.save_block(self.blocks[-1], len(self.blocks) - 1)
             self.blocks.append(Block(self.blocks[-1].endHash, self.calculate_new_HASH(), [Pool_]))
 
-        Block.save_block(self.blocks[-1], len(self.blocks) - 1)    
+        Block.save_block(self.blocks[-1], len(self.blocks) - 1) 
+        
+        return (self.BlockchainStats.STATE_OK)   
 
     def calculate_new_HASH(self):
         str_ = ""
