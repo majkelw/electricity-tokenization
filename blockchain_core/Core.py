@@ -123,8 +123,6 @@ class Core():
         index1 = [index for index in range(len(self.users_id)) if self.users_id[index] == userID]
         
         if index1:
-            self.tokens.remove(token)
-            
             state, new_pool = Pool.construct(token, poolParam.nTOKEN.value, userID, 1, str(now), self.HASH)
             state = blockchain.add_pool(new_pool)
 
@@ -147,6 +145,8 @@ class Core():
         
         if index1:
             try:
+                self.tokens.remove(token)
+
                 state, new_pool = Pool.construct(token, poolParam.dTOKEN.value, userID, 1, str(now), self.HASH)
                 state = blockchain.add_pool(new_pool)
 
