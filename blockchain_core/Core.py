@@ -119,21 +119,47 @@ class Core():
             
     def add_token(self, token, userID, blockchain):
         now = datetime.datetime.now()
-
-        state, new_pool = Pool.construct(token, poolParam.nTOKEN.value, userID, 1, str(now), self.HASH)
-        state = blockchain.add_pool(new_pool)
         
         index1 = [index for index in range(len(self.users_id)) if self.users_id[index] == userID]
         
         if index1:
+            self.tokens.remove(token)
+            
+            state, new_pool = Pool.construct(token, poolParam.nTOKEN.value, userID, 1, str(now), self.HASH)
+            state = blockchain.add_pool(new_pool)
+
             state, wallet1 = Wallet.read_wallet(index1[0])
             state, operation1 = Operation.construct(userID, 1, 'NEW TOKEN', str(now))
             state = Wallet.add_operation(wallet1, operation1)
             state = Wallet.add_amount(wallet1, 1)
             state = Wallet.save_wallet(wallet1, index1[0])
             self.wallets[index1[0]] = wallet1
+            self.tokens.append(token)
 
             return (self.CoreStats.STATE_OK)
+        else:
+            return (self.CoreStats.USER_NOT_EXIST)
+            
+    def delete_token(self, token, userID, blockchain):
+        now = datetime.datetime.now()
+        
+        index1 = [index for index in range(len(self.users_id)) if self.users_id[index] == userID]
+        
+        if index1:
+            try:
+                state, new_pool = Pool.construct(token, poolParam.dTOKEN.value, userID, 1, str(now), self.HASH)
+                state = blockchain.add_pool(new_pool)
+
+                state, wallet1 = Wallet.read_wallet(index1[0])
+                state, operation1 = Operation.construct(userID, 1, 'DEL TOKEN', str(now))
+                state = Wallet.add_operation(wallet1, operation1)
+                state = Wallet.remove_amount(wallet1, 1)
+                state = Wallet.save_wallet(wallet1, index1[0])
+                self.wallets[index1[0]] = wallet1
+
+                return (self.CoreStats.STATE_OK)
+            except ValueError:
+                return (self.CoreStats.TOKEN_NOT_EXIST)
         else:
             return (self.CoreStats.USER_NOT_EXIST)
             
