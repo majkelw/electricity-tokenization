@@ -1,3 +1,5 @@
+import hashlib
+
 from mnemonic import Mnemonic
 
 
@@ -13,5 +15,7 @@ class UserService:
         return True if user_id in self.users_ids else False
 
     def create_user(self):
+        words = self.mnemonic.generate(strength=256)
+        user_id = hashlib.sha256(self.mnemonic.to_seed(words, passphrase="")).hexdigest()
         return {"detail": "New user added, please save generated words in safe place",
-                "words": self.mnemonic.generate(strength=256).split(" ")}
+                "user_id": user_id, "words": words.split(" ")}
