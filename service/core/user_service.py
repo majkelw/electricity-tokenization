@@ -1,7 +1,7 @@
-import hashlib
-import hmac
 import base58
 from mnemonic import Mnemonic
+
+from service.core.key_generator import KeyGenerator
 
 
 class UserService:
@@ -15,10 +15,13 @@ class UserService:
     def exist_by_id(self, user_id):
         return True if user_id in self.users_ids else False
 
-    def create_user(self):
-        words = self.mnemonic.generate(strength=256)
-        private_key = hmac.new(bytes(words, "utf-8"), digestmod=hashlib.sha256).digest()
-        public_key = hashlib.sha256(private_key).digest()
-        return {"detail": "New user added, please save generated words in safe place",
+    def create(self):
+        private_key, public_key, words = KeyGenerator.generate_from_random_words()
+        return {"detail": "Successfully created, please save generated words in safe place",
                 "private_key": base58.b58encode(private_key), "public_key": base58.b58encode(public_key),
                 "words": words}
+
+    def recover_key(self, key_recovery_body):
+        private_key, public_key = KeyGenerator.generate_from_input(key_recovery_body.words)
+        return {"detail": "Key recovered",
+                "private_key": base58.b58encode(private_key), "public_key": base58.b58encode(public_key)}

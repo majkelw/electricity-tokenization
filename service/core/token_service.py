@@ -16,7 +16,7 @@ class TokenService:
         return self.__convert_energy_to_tokens(energy_body.energy_amount)
 
     # zwracamy kod i wiadomosc dla uzytkownika
-    def create_from(self, energy_body):
+    def create(self, energy_body):
         if not self.user_service.exist_by_id(energy_body.user_id):
             return 401, "User does not exist"
         saved_tokens_num = self.__save(energy_body)
