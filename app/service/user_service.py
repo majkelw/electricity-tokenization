@@ -1,7 +1,7 @@
 import base58
 from mnemonic import Mnemonic
 
-from service.core.key_generator import KeyGenerator
+from app.utils.key_generator import KeyGenerator
 
 
 class UserService:

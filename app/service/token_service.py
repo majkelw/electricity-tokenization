@@ -1,4 +1,4 @@
-from service.core.user_service import UserService
+from app.service.user_service import UserService
 
 
 class TokenService:

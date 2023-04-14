@@ -2,9 +2,9 @@ import fastapi
 import uvicorn
 
 from model.energy_body import EnergyBody
-from core.token_service import TokenService
-from service.core.user_service import UserService
-from service.model.key_recovery_body import KeyRecoveryBody
+from service.token_service import TokenService
+from app.service.user_service import UserService
+from app.model.key_recovery_body import KeyRecoveryBody
 
 app = fastapi.FastAPI()
 token_service = TokenService()
