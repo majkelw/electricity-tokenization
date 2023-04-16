@@ -1,7 +1,7 @@
 import datetime
 import base58
 
-from app.core.Blockchain.pool import Pool, poolParam
+from app.core.blockchain.pool import Pool, poolParam
 from app.core.wallet.wallet import Wallet
 from app.utils.key_generator import KeyGenerator
 
@@ -19,7 +19,7 @@ class UserService:
 
         timestamp = datetime.datetime.now()
         state, wallet = Wallet.construct(public_key)
-        print(Wallet.save_wallet(wallet, len(self.wallets)))
+        Wallet.save_wallet(wallet, len(self.wallets))
         self.wallets.append(wallet)
         state, new_pool = Pool.construct(public_key, poolParam.nUSER.value, public_key, 1, str(timestamp), self.HASH)
         blockchain.add_pool(new_pool)

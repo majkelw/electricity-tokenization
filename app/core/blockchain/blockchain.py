@@ -1,7 +1,7 @@
 import hashlib
 from enum import Enum
 
-from app.core.Blockchain.block import Block
+from app.core.blockchain.block import Block
 
 
 class BlockchainInit(Enum):

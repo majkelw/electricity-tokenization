@@ -4,11 +4,11 @@ from enum import Enum
 from prettytable import PrettyTable
 import hashlib
 
-from Blockchain.pool import Pool
-from Blockchain.pool import poolParam
-from Blockchain.block import Block
-from Blockchain.blockchain import Blockchain
-from Blockchain.blockchain import BlockchainInit
+from blockchain.pool import Pool
+from blockchain.pool import poolParam
+from blockchain.block import Block
+from blockchain.blockchain import Blockchain
+from blockchain.blockchain import BlockchainInit
 
 from wallet.wallet import Wallet
 from wallet.transaction import Transaction

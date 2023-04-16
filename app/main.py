@@ -1,7 +1,7 @@
 import fastapi
 import uvicorn
 
-from app.core.Blockchain.blockchain import Blockchain, BlockchainInit
+from app.core.blockchain.blockchain import Blockchain, BlockchainInit
 from model.energy_body import EnergyBody
 from service.token_service import TokenService
 from app.service.user_service import UserService

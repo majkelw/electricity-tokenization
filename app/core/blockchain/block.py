@@ -4,7 +4,7 @@ import pickle
 import datetime
 from prettytable import PrettyTable
 
-from app.core.Blockchain.pool import Pool, poolParam
+from app.core.blockchain.pool import Pool
 
 
 class Block(NamedTuple):

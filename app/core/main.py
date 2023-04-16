@@ -4,11 +4,11 @@ from enum import Enum
 from prettytable import PrettyTable
 import hashlib
 
-from Blockchain.pool import Pool
-from Blockchain.pool import poolParam
-from Blockchain.block import Block
-from Blockchain.blockchain import Blockchain
-from Blockchain.blockchain import BlockchainInit
+from blockchain.pool import Pool
+from blockchain.pool import poolParam
+from blockchain.block import Block
+from blockchain.blockchain import Blockchain
+from blockchain.blockchain import BlockchainInit
 
 from wallet.wallet import Wallet
 from wallet.transaction import Transaction
@@ -29,18 +29,18 @@ def calculate_new_HASH():
 
 def main():
     now = datetime.datetime.now()
-           
+
     blockChain = Blockchain(BlockchainInit.SOURCE)
-    
+
     core = Core()
     core.contruct_wallets_from_blockchain(blockChain)
-    
+
     #core.add_user(user2_id, blockChain)
-    
+
     #for i in range(0, 50):
     #    hash1 = calculate_new_HASH()
     #    core.add_token(hash1, user1_id, blockChain)
-    
+
     #core.add_transaction(user1_id, user2_id, 50, blockChain)
     #core.add_transaction(user1_id, user2_id, 1, blockChain)
     #core.add_transaction(user1_id, user2_id, 19, blockChain)
@@ -49,10 +49,10 @@ def main():
 
     st = blockChain.print_blocks() # blockChain.print_blocks([2])
     print (st)
-    
+
     core.print_wallet(core.wallets[0])
     core.print_wallet(core.wallets[1])
-    
+
 if __name__ == "__main__":
     main()
 
