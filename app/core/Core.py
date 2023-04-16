@@ -10,9 +10,9 @@ from Blockchain.block import Block
 from Blockchain.blockchain import Blockchain
 from Blockchain.blockchain import BlockchainInit
 
-from Wallet.wallet import Wallet
-from Wallet.transaction import Transaction
-from Wallet.operation import Operation
+from wallet.wallet import Wallet
+from wallet.transaction import Transaction
+from wallet.operation import Operation
 
 class Core():
     users_id = []
@@ -171,7 +171,7 @@ class Core():
             state, wallet = Wallet.construct(userID)
 
             #################################################
-            #Wallet.add_amount(wallet, 0)
+            #wallet.add_amount(wallet, 0)
             #################################################
 
             self.wallets.append(wallet)

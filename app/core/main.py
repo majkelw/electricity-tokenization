@@ -10,8 +10,8 @@ from Blockchain.block import Block
 from Blockchain.blockchain import Blockchain
 from Blockchain.blockchain import BlockchainInit
 
-from Wallet.wallet import Wallet
-from Wallet.transaction import Transaction
+from wallet.wallet import Wallet
+from wallet.transaction import Transaction
 from Core import Core
 
 import random
