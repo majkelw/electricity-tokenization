@@ -1,6 +1,7 @@
 import fastapi
 import uvicorn
 
+from app.core.blockchain.blockchain import Blockchain, BlockchainInit
 from model.energy_body import EnergyBody
 from service.token_service import TokenService
 from app.service.user_service import UserService
@@ -9,6 +10,7 @@ from app.model.key_recovery_body import KeyRecoveryBody
 app = fastapi.FastAPI()
 token_service = TokenService()
 user_service = UserService()
+blockchain = Blockchain(BlockchainInit.SOURCE)
 
 
 @app.post("/create-token")
@@ -21,7 +23,7 @@ async def create_token(energy_body: EnergyBody):
 
 @app.post("/create-user")
 async def create_user():
-    return user_service.create()
+    return user_service.create(blockchain)
 
 
 @app.post("/recover-key")
@@ -31,3 +33,4 @@ async def recover_key(key_recovery_body: KeyRecoveryBody):
 
 if __name__ == "__main__":
     uvicorn.run(app, port=8080)
+
