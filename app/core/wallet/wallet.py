@@ -66,7 +66,7 @@ class Wallet(NamedTuple):
     @classmethod
     def add_energy_producted(self, wallet, energy):
         if not energy < 0.0:
-            wallet.bilance.append(energy.total_energy_producted)
+            wallet.total_energy_producted(energy)
             return (self.WalletStats.STATE_OK)
         else:
             return (self.WalletStats.NEGATIVE_ENERGY)
@@ -74,7 +74,7 @@ class Wallet(NamedTuple):
     @classmethod
     def add_energy_consumpted(self, wallet, energy):
         if not energy < 0.0:
-            wallet.bilance.append(energy.total_energy_consumpted)
+            wallet.total_energy_consumpted.append(energy)
             return (self.WalletStats.STATE_OK)
         else:
             return (self.WalletStats.NEGATIVE_ENERGY)

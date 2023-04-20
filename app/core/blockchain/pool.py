@@ -1,6 +1,7 @@
 from enum import Enum
 from typing import NamedTuple
 
+
 class poolParam(Enum):
     SEND = 0
     nTOKEN = 1
@@ -8,10 +9,11 @@ class poolParam(Enum):
     nUSER = 3
     dUSER = 4
     NOTHING = 5
-    
+
     @classmethod
     def has_value(cls, value):
         return value in cls._value2member_map_
+
 
 class Pool(NamedTuple):
     id_1: str
@@ -27,16 +29,16 @@ class Pool(NamedTuple):
 
     @classmethod
     def construct(self, id_1_, param_, id_2_, amount_, time_, id_3_):
-        if (poolParam.has_value(param_)):
+        if poolParam.has_value(param_):
             if (len(id_1_) == self.HASH_LEN and
-                len(id_2_) == self.HASH_LEN and
-                len(id_3_) == self.HASH_LEN):
+                    len(id_2_) == self.HASH_LEN and
+                    len(id_3_) == self.HASH_LEN):
                 pool = Pool(id_1_, param_, id_2_, amount_, time_, id_3_)
-                return (self.PoolStats.STATE_OK, pool)
+                return self.PoolStats.STATE_OK, pool
             else:
-                return (self.PoolStats.INCONSISTENT_HASH_LEN, None)
+                return self.PoolStats.INCONSISTENT_HASH_LEN, None
         else:
-            return (self.PoolStats.INCONSISTENT_POOL_PARAM, None)
+            return self.PoolStats.INCONSISTENT_POOL_PARAM, None
 
     @classmethod
     def print_pool(self, pool):
@@ -48,7 +50,6 @@ class Pool(NamedTuple):
                     str(pool.amount),
                     pool.time,
                     pool.id_3[:3] + '...' + pool.id_3[-3:]]
-            return (self.PoolStats.STATE_OK, str_)
+            return self.PoolStats.STATE_OK, str_
         else:
-            return (self.PoolStats.NONE_OBJ, "")
-
+            return self.PoolStats.NONE_OBJ, ""

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
 
-class KeyRecoveryBody(BaseModel):
+class UserRecoveryBody(BaseModel):
     words: str

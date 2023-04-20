@@ -4,13 +4,13 @@ import hmac
 from mnemonic import Mnemonic
 
 
-class KeyGenerator:
+class KeyManager:
     mnemonic = Mnemonic("english")
 
     @classmethod
     def generate_from_input(cls, words):
-        private_key = hmac.new(bytes(words, "utf-8"), digestmod=hashlib.sha256).digest()
-        public_key = hashlib.sha256(private_key).digest()
+        private_key = hmac.new(bytes(words, "utf-8"), digestmod=hashlib.sha256).hexdigest()
+        public_key = hashlib.sha256(str(private_key).encode("utf-8")).hexdigest()
         return private_key, public_key
 
     @classmethod

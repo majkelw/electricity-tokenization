@@ -4,7 +4,7 @@ import pickle
 import datetime
 from prettytable import PrettyTable
 
-from app.core.blockchain.pool import Pool
+from app.core.blockchain.pool import Pool, poolParam
 
 
 class Block(NamedTuple):
@@ -29,7 +29,7 @@ class Block(NamedTuple):
         state, empty_pool = Pool.construct(self.HASH_TEMPLATE, poolParam.NOTHING.value, self.HASH_TEMPLATE, 0, str(now),
                                            self.HASH_TEMPLATE)
         block = Block(self.HASH_TEMPLATE, self.HASH_TEMPLATE, [empty_pool])
-        return (self.BlockStats.STATE_OK, block)
+        return self.BlockStats.STATE_OK, block
 
     @classmethod
     def save_block(self, block, blockID):
@@ -38,22 +38,23 @@ class Block(NamedTuple):
             with open(block_name, 'wb') as f:
                 pickle.dump(block, f)
                 f.close()
-            return (self.BlockStats.STATE_OK)
+            return self.BlockStats.STATE_OK
         except IOError:
-            return (self.BlockStats.UNABLE_TO_SAVE)
+            return self.BlockStats.UNABLE_TO_SAVE
 
     @classmethod
     def read_block(self, blockID):
         block_name = self.DIR_TO_BLOCKS + self.FILE_NAME_PREF + str(blockID) + '.pkl'
+        print(block_name)
         try:
             with open(block_name, 'rb') as f:
                 block = pickle.load(f)
                 f.close()
-            return (self.BlockStats.STATE_OK, block)
+            return self.BlockStats.STATE_OK, block
         except FileNotFoundError:
-            return (self.BlockStats.NOT_FOUND, None)
+            return self.BlockStats.NOT_FOUND, None
         except IOError:
-            return (self.BlockStats.UNABLE_TO_OPEN, None)
+            return self.BlockStats.UNABLE_TO_OPEN, None
 
     @classmethod
     def add_pool(self, block, pool):
@@ -61,9 +62,9 @@ class Block(NamedTuple):
 
         if self.pool_idx < self.NUMBER_OF_POOLS:
             block.pools.append(pool)
-            return (self.BlockStats.ADD_POOL, self.pool_idx)
+            return self.BlockStats.ADD_POOL, self.pool_idx
         else:
-            return (self.BlockStats.BLOCK_FULL, self.pool_idx)
+            return self.BlockStats.BLOCK_FULL, self.pool_idx
 
     @classmethod
     def print_block(self, block):
@@ -77,11 +78,11 @@ class Block(NamedTuple):
         str_ += str(x)
 
         str_ += "\nEnd HASH: " + block.endHash + "\n\n"
-        return (self.BlockStats.STATE_OK, str_)
+        return self.BlockStats.STATE_OK, str_
 
     @classmethod
     def get_pool(self, pool_id, block):
         if pool_id <= len(block.pools) - 1:
-            return (self.BlockStats.STATE_OK, block.pools[pool_id])
+            return self.BlockStats.STATE_OK, block.pools[pool_id]
         else:
-            return (self.BlockStats.POOL_NOT_EXIST, None)
+            return self.BlockStats.POOL_NOT_EXIST, None

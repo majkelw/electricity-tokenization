@@ -8,11 +8,10 @@ from blockchain.pool import Pool
 from blockchain.pool import poolParam
 from blockchain.block import Block
 from blockchain.blockchain import Blockchain
-from blockchain.blockchain import BlockchainInit
 
 from wallet.wallet import Wallet
 from wallet.transaction import Transaction
-from Core import Core
+from core import Core
 
 import random
 import hashlib
@@ -30,12 +29,12 @@ def calculate_new_HASH():
 def main():
     now = datetime.datetime.now()
 
-    blockChain = Blockchain(BlockchainInit.SOURCE)
-
+    blockChain = Blockchain()
     core = Core()
-    core.contruct_wallets_from_blockchain(blockChain)
+    core.contruct_wallets(blockChain)
 
-    #core.add_user(user2_id, blockChain)
+    # core.add_user(user2_id, blockChain)
+    #core.add_user(user1_id, blockChain)
 
     #for i in range(0, 50):
     #    hash1 = calculate_new_HASH()
@@ -48,10 +47,10 @@ def main():
 
 
     st = blockChain.print_blocks() # blockChain.print_blocks([2])
-    print (st)
+    #print (st)
 
     core.print_wallet(core.wallets[0])
-    core.print_wallet(core.wallets[1])
+    # core.print_wallet(core.wallets[1])
 
 if __name__ == "__main__":
     main()
