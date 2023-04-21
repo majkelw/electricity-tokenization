@@ -8,37 +8,43 @@ from app.service.user_service import UserService
 from model.energy_body import EnergyBody
 from service.token_service import TokenService
 from app.core.core import Core
+
 app = FastAPI()
-token_service = TokenService()
-user_service = UserService()
-transaction_service = TransactionService()
-
 core = Core()
+token_service = TokenService(core)
+user_service = UserService(core)
+transaction_service = TransactionService(core)
 
 
-@app.post("/token")
+@app.post("/tokens")
 async def create_token(energy_body: EnergyBody, response: Response):
     response_code, response_body = token_service.create(energy_body)
     response.status_code = response_code
     return response_body
 
 
-@app.post("/user")
+@app.post("/users")
 async def create_user():
-    response_code, response_body = user_service.create(core)
+    response_code, response_body = user_service.create()
     return response_body
 
 
-@app.post("/user/recover")
+@app.post("/users/recover")
 async def recover_user(user_recovery_body: UserRecoveryBody):
-    return user_service.recover(user_recovery_body)
+    response_code, response_body = user_service.recover(user_recovery_body)
+    return response_body
 
 
-@app.post("/transaction")
+@app.post("/transactions")
 async def verify_user(transaction_body: TransactionBody, response: Response):
     response_code, response_body = transaction_service.create(transaction_body)
     response.status_code = response_code
     return response_body
+
+
+@app.get("/blockchain")
+async def get_blockchain():
+    return core.blockchain.to_json()
 
 
 if __name__ == "__main__":

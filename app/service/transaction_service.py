@@ -2,7 +2,10 @@ from app.service.user_service import UserService
 
 
 class TransactionService:
-    user_service = UserService()
+
+    def __init__(self, core):
+        self.core = core
+        self.user_service = UserService(self.core)
 
     def create(self, transaction_body):
         # NOT WORKING

@@ -1,6 +1,8 @@
 import hashlib
 from enum import Enum
 
+import base58
+
 from app.core.blockchain.block import Block
 
 
@@ -63,3 +65,17 @@ class Blockchain:
             return self.BlockchainStats.STATE_OK, self.blocks[block_id]
         else:
             return self.BlockchainStats.BLOCK_NOT_EXIST, None
+
+    def to_json(self):
+        blocks = []
+        block_number = 0
+
+        for block in self.blocks:
+            pools = []
+            for pool in block.pools:
+                pools.append({"id_1": base58.b58encode(pool.id_1), "id_2": base58.b58encode(pool.id_2),
+                              "id_3": base58.b58encode(pool.id_3), "param": pool.param, "amount": pool.amount})
+            blocks.append({"begin_hash": base58.b58encode(block.beginHash), "pools": pools,
+                           "end_hash": base58.b58encode(block.endHash)})
+            block_number += 1
+        return {"blocks": blocks}
