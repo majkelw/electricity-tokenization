@@ -2,7 +2,7 @@ import hashlib
 import random
 import base58
 
-from app.core.core import Core
+from core.core import Core
 
 
 class TokenService:

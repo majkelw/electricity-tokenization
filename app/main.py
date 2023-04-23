@@ -1,16 +1,17 @@
 import uvicorn
 from fastapi import FastAPI, Response
 
-from app.model.transaction_body import TransactionBody
-from app.model.user_recovery_body import UserRecoveryBody
-from app.service.transaction_service import TransactionService
-from app.service.user_service import UserService
+from model.transaction_body import TransactionBody
+from model.user_recovery_body import UserRecoveryBody
+from service.transaction_service import TransactionService
+from service.user_service import UserService
 from model.energy_body import EnergyBody
 from service.token_service import TokenService
-from app.core.core import Core
+from core.core import Core
 
 app = FastAPI()
 core = Core()
+core.contruct_wallets()
 token_service = TokenService(core)
 user_service = UserService(core)
 transaction_service = TransactionService(core)
@@ -47,5 +48,10 @@ async def get_blockchain():
     return core.blockchain.to_json()
 
 
+@app.get("/wallet")
+async def get_wallet(coded_user_id: str):
+    return core.wallet_to_json(coded_user_id)
+
 if __name__ == "__main__":
     uvicorn.run(app, port=8080)
+

@@ -4,8 +4,8 @@ from typing import NamedTuple
 from prettytable import PrettyTable
 import pickle
 
-from app.core.wallet.operation import Operation
-from app.core.wallet.transaction import Transaction
+from core.wallet.operation import Operation
+from core.wallet.transaction import Transaction
 
 
 class Wallet(NamedTuple):
@@ -144,3 +144,49 @@ class Wallet(NamedTuple):
         str_ += str(x)
 
         return (self.WalletStats.STATE_OK, str_)
+        
+    @classmethod
+    def to_json(self, wallet):
+        json_struct = []
+        
+        json_struct.append({"ID": wallet.user_id})
+        json_struct.append({"BILANCE": str(sum(wallet.bilance))})
+        json_struct.append({"ENERGY CONSUMPTED": str(sum(wallet.total_energy_consumpted))})
+        json_struct.append({"ENERGY PRODUCTED": str(sum(wallet.total_energy_producted))})
+        
+        json_struct.append({"TOTAL TRANSACTIONS": str(len(wallet.transactions))})
+        json_struct.append({"TOTAL OPERATIONS": str(len(wallet.operations))})
+
+        if wallet.transactions:
+            id_cnt = 0
+            for transaction in wallet.transactions:
+                json_transaction = []
+                json_transaction.append({"ID": str(id_cnt)})
+                json_transaction.append({"FROM": transaction.from_})
+                json_transaction.append({"TO": transaction.to_})
+                json_transaction.append({"AMOUNT": str(transaction.amount)})
+                json_transaction.append({"DIRECTION": transaction.direction})
+                json_transaction.append({"TIME": transaction.time})
+                
+                json_struct.append({"TRANSACTION": json_transaction})
+        else:
+            json_struct.append({"TRANSACTIONS": "EMPTY"})
+
+        if wallet.operations:
+            id_cnt = 0
+            for operation in wallet.operations:
+                json_operation = []
+                json_operation.append({"ID": str(id_cnt)})
+                json_operation.append({"FROM": operation.from_})
+                json_operation.append({"AMOUNT": str(operation.amount)})
+                json_operation.append({"OP TYPE": operation.op_type})
+                json_operation.append({"TIME": operation.time})
+                
+                json_struct.append({"OPERATION": json_operation})
+        else:
+            json_struct.append({"OPERATIONS": "EMPTY"})
+
+        return {"wallet": json_struct}
+
+
+

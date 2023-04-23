@@ -1,6 +1,6 @@
 import base58
 
-from app.utils.key_manager import KeyManager
+from utils.key_manager import KeyManager
 
 
 class UserService:

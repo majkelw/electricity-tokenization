@@ -1,4 +1,4 @@
-from app.service.user_service import UserService
+from service.user_service import UserService
 
 
 class TransactionService:

@@ -3,7 +3,7 @@ from enum import Enum
 
 import base58
 
-from app.core.blockchain.block import Block
+from core.blockchain.block import Block
 
 
 class Blockchain:

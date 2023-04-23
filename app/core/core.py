@@ -1,11 +1,12 @@
 import datetime
 from enum import Enum
+import base58
 
-from app.core.blockchain.blockchain import Blockchain
-from app.core.blockchain.pool import Pool, poolParam
-from app.core.wallet.operation import Operation
-from app.core.wallet.transaction import Transaction
-from app.core.wallet.wallet import Wallet
+from core.blockchain.blockchain import Blockchain
+from core.blockchain.pool import Pool, poolParam
+from core.wallet.operation import Operation
+from core.wallet.transaction import Transaction
+from core.wallet.wallet import Wallet
 
 
 class Core:
@@ -179,3 +180,20 @@ class Core:
             return (self.CoreStats.STATE_OK)
         else:
             return (self.CoreStats.USER_EXIST)
+            
+    def wallet_to_json(self, coded_user_id):
+        #try:
+        real_user_id = base58.b58decode(coded_user_id).decode('utf-8')
+
+        index1 = [index for index in range(len(self.users_id)) if self.users_id[index] == real_user_id]
+        some = []
+        
+        if index1:
+            return Wallet.to_json(self.wallets[index1[0]])
+        else:
+            return {"wallet": "No exist"}
+        #except Exception:
+        #    return {"wallet": "Invalid User"}
+        
+        
+
