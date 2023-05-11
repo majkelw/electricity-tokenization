@@ -28,7 +28,7 @@ async def create_token(energy_body: EnergyBody, response: Response):
 async def create_user():
     response_code, response_body = user_service.create()
     return response_body
-
+    
 
 @app.post("/users/recover")
 async def recover_user(user_recovery_body: UserRecoveryBody):
@@ -53,5 +53,6 @@ async def get_wallet(coded_user_id: str):
     return core.wallet_to_json(coded_user_id)
 
 if __name__ == "__main__":
-    uvicorn.run(app, port=8080)
+    uvicorn.run(app, host="0.0.0.0", port=8080)
+    #uvicorn.run(app, port=8080)
 
