@@ -53,6 +53,6 @@ async def get_wallet(coded_user_id: str):
     return core.wallet_to_json(coded_user_id)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8080)
-    #uvicorn.run(app, port=8080)
+    #uvicorn.run(app, host="0.0.0.0", port=8080)
+    uvicorn.run(app, host= "192.168.43.167", port=8080)
 

@@ -3,6 +3,7 @@ package com.example.mobileapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -31,12 +32,12 @@ public class MainActivity extends AppCompatActivity {
     TextView testTextView;
 
     // Configure OkHttpClient with base URL interceptor
-    OkHttpClient client = new OkHttpClient.Builder()
-            .addInterceptor(new BaseUrlInterceptor("http://10.0.2.2:8000"))
-            .build();
+   // OkHttpClient client = new OkHttpClient.Builder()
+      //      .addInterceptor(new BaseUrlInterceptor("http://10.0.2.2:8080"))
+         //   .build();
 
     Retrofit retrofit;
-        String serverUrl = "http://10.0.2.2";
+        String serverUrl = "http://192.168.43.194:8080";
       //  String serverUrl = "http://127.0.0.1:8080/";
 
     @Override
@@ -66,14 +67,21 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 } else
                 {
-                    Toast.makeText(MainActivity.this, "Code"+ response.code(), Toast.LENGTH_LONG);
+                    Toast.makeText(MainActivity.this, "Code"+ response.code(), Toast.LENGTH_LONG).show();
                 }
             }
             @Override
             public void onFailure(Call<UsersResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, t.getMessage(),Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Błąd:  "+ t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
+
+
+    }
+
+    public void login(View view)
+    {
+        openSeedLayout();
     }
 
     SharedPreferences preferences;
@@ -91,5 +99,18 @@ public class MainActivity extends AppCompatActivity {
             return userId;
         }
 
+    public void openSeedLayout()
+    {
+        Intent intent = new Intent(this,SeedActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void openSeedInLayout(View view)
+    {
+        Intent intent1 = new Intent(this,SeedInActivity.class);
+        startActivity(intent1);
+
+    }
 
 }
