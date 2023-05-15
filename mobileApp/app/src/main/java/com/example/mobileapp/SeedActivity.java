@@ -22,9 +22,9 @@ public class SeedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seed_output_layout);
 
-        seedTextView = findViewById(R.id.seed_output);
+        //seedTextView = findViewById(R.id.seed_output);
         btn_seed_ok = findViewById(R.id.btn_seed_ok);
-        seedShow();
+        //seedShow();
     }
 
 

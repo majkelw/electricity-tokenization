@@ -6,40 +6,55 @@
     android:layout_height="match_parent"
     tools:context=".SeedActivity">
 
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="325dp"
-        android:layout_height="58dp"
-        android:text="Zapisz wygenerowane seedy \n Bedą podatne przy odzyskiwaniu dostepu do aplikacji"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/seed_output"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.604"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.62" />
-
-    <TextView
-        android:id="@+id/seed_output"
-        android:layout_width="301dp"
-        android:layout_height="423dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="235dp"
+        android:layout_height="152dp"
+        android:src="@drawable/main_logo"
+        android:layout_marginTop="120dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="350sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Jeżeli posiadasz konto i chcesz zalogować się z innego urządzenia poniżej wpisz 24 zapisane słowa, oddzielone spacjami, wygenerowane podczas rejestracji"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <EditText
+        android:id="@+id/editTextTextMultiLine"
+        android:layout_width="350sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="pigeon solve indoor dwarf consider ramp order venture estate search sunset buddy hold grocery advance loan tank own olympic crystal upper people popular all"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
     <Button
         android:id="@+id/btn_seed_ok"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250sp"
+        android:layout_height="70sp"
+        android:layout_marginTop="32dp"
         android:onClick="openWalletLayout"
-        android:text="OK, potwierdam"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Zaloguj"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seed_output" />
-
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
