@@ -28,31 +28,34 @@ async def create_token(energy_body: EnergyBody, response: Response):
 async def create_user():
     response_code, response_body = user_service.create()
     return response_body
-    
+
 
 @app.post("/users/recover")
 async def recover_user(user_recovery_body: UserRecoveryBody):
     response_code, response_body = user_service.recover(user_recovery_body)
     return response_body
-
-
+    
 @app.post("/transactions")
 async def verify_user(transaction_body: TransactionBody, response: Response):
     response_code, response_body = transaction_service.create(transaction_body)
     response.status_code = response_code
     return response_body
 
+@app.get("/users_list")
+async def get_users_list(response: Response):
+    response_code, response_body = user_service.get_users_list()
+    response.status_code = response_code
+    return response_body
 
 @app.get("/blockchain")
 async def get_blockchain():
     return core.blockchain.to_json()
-
 
 @app.get("/wallet")
 async def get_wallet(coded_user_id: str):
     return core.wallet_to_json(coded_user_id)
 
 if __name__ == "__main__":
-    #uvicorn.run(app, host="0.0.0.0", port=8080)
-    uvicorn.run(app, host= "192.168.43.167", port=8080)
+    #uvicorn.run(app, host='192.168.43.194', port=8080) ########### Usunąć HOST ##############
+    uvicorn.run(app, port=8080)
 

@@ -32,7 +32,7 @@ class Core:
                     self.users_id.append(pool.id_1)
                     wallet_id += 1
 
-                elif pool.param == poolParam.SEND:
+                elif pool.param == 0:
                     state, transaction1 = Transaction.construct(pool.id_1, pool.id_2, pool.amount, 'OUT', str(now))
                     state, transaction2 = Transaction.construct(pool.id_1, pool.id_2, pool.amount, 'IN', str(now))
 
@@ -105,7 +105,8 @@ class Core:
 
                 state, new_pool = Pool.construct(user1_id, poolParam.SEND.value, user2_id, amount, str(now), self.HASH)
                 state = self.blockchain.add_pool(new_pool)
-
+                
+                return (self.CoreStats.STATE_OK)
             else:
                 return (self.CoreStats.WALLET_NOT_EXIST)
 
@@ -194,6 +195,4 @@ class Core:
             return {"wallet": "No exist"}
         #except Exception:
         #    return {"wallet": "Invalid User"}
-        
-        
 
