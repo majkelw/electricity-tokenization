@@ -4,58 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activity.SignUpActivity">
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="235dp"
         android:layout_height="152dp"
-        android:layout_marginTop="150dp"
         android:src="@drawable/main_logo"
+        android:layout_marginTop="120dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="250sp"
-        android:layout_height="70sp"
-        android:layout_marginTop="120dp"
-        android:onClick="login"
-        android:text="Logowanie"
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="350sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="Rejestracja w systemie jest anonimowa nie musisz wprowadzać żadnych danych, wciśnij zarejestruj aby uzyskać swój unikalny identyfikator"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <Button
-        android:id="@+id/btn_reg"
+        android:id="@+id/button5"
         android:layout_width="250sp"
         android:layout_height="70sp"
-        android:layout_marginTop="30dp"
-        android:onClick="regist"
-        android:text="Rejestracja"
+        android:layout_marginTop="48dp"
+        android:onClick="signUp"
+        android:text="Zarejestruj"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-    <Button
-        android:id="@+id/button"
-        style="@style/Widget.AppCompat.Button.Borderless"
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:onClick="openSeedInLayout"
-        android:text="Nie pamiętam hasła"
-        android:textColor="@color/black"
-        android:textSize="14sp"
+        android:layout_marginBottom="112dp"
+        android:clickable="true"
+        android:onClick="changeToSignInActivity"
+        android:text="Posiadam już konto"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_reg"
-        app:rippleColor="@color/black" />
-
+        app:layout_constraintTop_toBottomOf="@+id/button5"
+        app:layout_constraintVertical_bias="0.254" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

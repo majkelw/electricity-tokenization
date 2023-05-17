@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SeedActivity">
+    tools:context=".activity.SignInActivity">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Jeżeli posiadasz konto i chcesz zalogować się z innego urządzenia poniżej wpisz 24 zapisane słowa, oddzielone spacjami, wygenerowane podczas rejestracji"
+        android:text="Jeżeli posiadasz konto i chcesz się zalogować wpisz poniżej 24 zapisane słowa, oddzielone spacjami, wygenerowane podczas rejestracji"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/seedEditText"
         android:layout_width="350sp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -45,16 +45,31 @@
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
-        android:id="@+id/btn_seed_ok"
+        android:id="@+id/button3"
         android:layout_width="250sp"
         android:layout_height="70sp"
         android:layout_marginTop="32dp"
-        android:onClick="openWalletLayout"
+        android:onClick="signIn"
         android:text="Zaloguj"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
+        app:layout_constraintTop_toBottomOf="@+id/seedEditText" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="changeToSignUpActivity"
+        android:text="Nie posiadam konta"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+        app:layout_constraintVertical_bias="0.125" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
