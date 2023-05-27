@@ -21,3 +21,15 @@ class UserService:
         return 200, {"message": "Key recovered from words",
                      "user_id": base58.b58encode(user_id),
                      "private_key": base58.b58encode(private_key)}
+
+    def get_users_list(self):
+        json_struct = []
+
+        if self.core.users_id:
+            for user in self.core.users_id:
+                json_struct.append({base58.b58encode(user)})
+        else:
+            json_struct.append({"Any user exist."})
+
+        return 200, json_struct
+
