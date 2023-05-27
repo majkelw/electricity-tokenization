@@ -1,6 +1,5 @@
 import datetime
 from enum import Enum
-import base58
 
 from core.blockchain.blockchain import Blockchain
 from core.blockchain.pool import Pool, poolParam
@@ -182,13 +181,10 @@ class Core:
         else:
             return (self.CoreStats.USER_EXIST)
             
-    def wallet_to_json(self, coded_user_id):
-        #try:
-        real_user_id = base58.b58decode(coded_user_id).decode('utf-8')
+    def wallet_to_json(self, user_id):
 
-        index1 = [index for index in range(len(self.users_id)) if self.users_id[index] == real_user_id]
-        some = []
-        
+        index1 = [index for index in range(len(self.users_id)) if self.users_id[index] == user_id]
+
         if index1:
             return Wallet.to_json(self.wallets[index1[0]])
         else:

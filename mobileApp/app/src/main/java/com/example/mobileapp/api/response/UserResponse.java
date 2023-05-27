@@ -2,7 +2,7 @@ package com.example.mobileapp.api.response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SignUpResponse {
+public class UserResponse {
     @SerializedName("user_id")
     private String userId;
     @SerializedName("private_key")

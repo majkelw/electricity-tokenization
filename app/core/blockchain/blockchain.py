@@ -1,7 +1,6 @@
 import hashlib
 from enum import Enum
 
-import base58
 
 from core.blockchain.block import Block
 
@@ -73,9 +72,9 @@ class Blockchain:
         for block in self.blocks:
             pools = []
             for pool in block.pools:
-                pools.append({"id_1": base58.b58encode(pool.id_1), "id_2": base58.b58encode(pool.id_2),
-                              "id_3": base58.b58encode(pool.id_3), "param": pool.param, "amount": pool.amount})
-            blocks.append({"begin_hash": base58.b58encode(block.beginHash), "pools": pools,
-                           "end_hash": base58.b58encode(block.endHash)})
+                pools.append({"id_1": pool.id_1, "id_2": pool.id_2,
+                              "id_3": pool.id_3, "param": pool.param, "amount": pool.amount})
+            blocks.append({"begin_hash": block.beginHash, "pools": pools,
+                           "end_hash": block.endHash})
             block_number += 1
         return {"blocks": blocks}

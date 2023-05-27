@@ -12,16 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mobileapp.R;
 import com.example.mobileapp.api.RetrofitHandler;
-import com.example.mobileapp.api.UserService;
-import com.example.mobileapp.api.response.SignUpResponse;
+import com.example.mobileapp.api.service.UserService;
+import com.example.mobileapp.api.response.UserResponse;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -43,7 +41,7 @@ public class SignUpActivity extends AppCompatActivity {
         }
     }
 
-    public void saveKeyValuePair(String key, String value) {
+    private void saveKeyValuePair(String key, String value) {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(key, value);
         editor.apply();
@@ -51,28 +49,25 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void signUp(View view) {
 
-        Call<SignUpResponse> call = userService.signUp(RequestBody.create(MediaType.parse("application/json"), ""));
-        call.enqueue(new Callback<SignUpResponse>() {
+        Call<UserResponse> call = userService.signUp(RequestBody.create(MediaType.parse("application/json"), ""));
+        call.enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<SignUpResponse> call, Response<SignUpResponse> response) {
+            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                 if (response.isSuccessful()) {
-                    SignUpResponse signUpResponse = response.body();
-                    saveKeyValuePair("user_id", signUpResponse.getUserId());
-                    saveKeyValuePair("private_key", signUpResponse.getPrivateKey());
-                    Toast.makeText(SignUpActivity.this, "Konto zostało utworzone", Toast.LENGTH_LONG).show();
-                    saveKeyValuePair("seed", signUpResponse.getWords());
+                    UserResponse userResponse = response.body();
+                    saveKeyValuePair("user_id", userResponse.getUserId());
+                    saveKeyValuePair("private_key", userResponse.getPrivateKey());
+                    Toast.makeText(SignUpActivity.this, userResponse.getMessage(), Toast.LENGTH_LONG).show();
+                    saveKeyValuePair("seed", userResponse.getWords()); // save to show in WalletActivity
                     startActivity(new Intent(SignUpActivity.this, WalletActivity.class));
                     finish();
                 }
-
             }
 
             @Override
-            public void onFailure(Call<SignUpResponse> call, Throwable t) {
+            public void onFailure(Call<UserResponse> call, Throwable t) {
                 Toast.makeText(SignUpActivity.this, t.toString(), Toast.LENGTH_LONG).show();
-
             }
-
         });
     }
 

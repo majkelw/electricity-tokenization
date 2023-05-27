@@ -8,17 +8,30 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.mobileapp.R;
+import com.example.mobileapp.api.RetrofitHandler;
+import com.example.mobileapp.api.response.WalletInfoResponse;
+import com.example.mobileapp.api.service.WalletService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class WalletActivity extends AppCompatActivity {
 
+    private WalletService walletService;
     private SharedPreferences preferences;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private TextView userIdTextView;
+    private TextView tokensNumberTextView;
+    private String userId;
 
 
     @Override
@@ -26,37 +39,67 @@ public class WalletActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wallet_layout);
         userIdTextView = findViewById(R.id.userIdTextView);
+        tokensNumberTextView = findViewById(R.id.tokensNumberTextView);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+
         preferences = getSharedPreferences("sharedPreferences", Context.MODE_PRIVATE);
-        String userId = preferences.getString("user_id", null);
-        if (userId != null) {
-            userIdTextView.setText(userId);
-        }
+        walletService = RetrofitHandler.getInstance().create(WalletService.class);
+
         // shows seed dialog only once after sign up, then clear seed
         String seed = preferences.getString("seed", null);
         if (seed != null) {
-            showSeedInDialog();
+            showSeedInDialog(seed);
             preferences.edit().remove("seed").apply();
         }
+        userId = preferences.getString("user_id", null);
+        if (userId != null) {
+            userIdTextView.setText(userId);
+            getWalletInfo();
+        }
+
+        handleRefresh();
     }
 
-    private void showSeedInDialog() {
+    private void showSeedInDialog(String seed) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("ZAPISZ WYGENEROWANE SŁOWA!");
-        builder.setMessage("visual boring fluid gloom robot strike twist risk leisure piano foster movie green net lift oxygen snack flight fame tail scissors they word imitate"
-                + "\n\nTe 24 słowa będą potrzebne, gdy będziesz chciał zalogować się na innym urządzeniu\nKliknij OK, aby je automatycznie skopiować");
+        builder.setMessage(seed + "\n\nTe 24 słowa będą potrzebne, gdy będziesz chciał zalogować się na innym urządzeniu\n" +
+                "Kliknij OK, aby je automatycznie skopiować");
         builder.setPositiveButton("OK", (dialog, which) -> {
             ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clipData = ClipData.newPlainText("Label", "visual boring fluid gloom robot strike twist risk leisure piano foster movie green net lift oxygen snack flight fame tail scissors they word imitate");
+            ClipData clipData = ClipData.newPlainText("Label", seed);
             clipboardManager.setPrimaryClip(clipData);
         });
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
+    private void getWalletInfo() {
+        Call<WalletInfoResponse> call = walletService.getWallet(userId);
+        call.enqueue(new Callback<WalletInfoResponse>() {
+            @Override
+            public void onResponse(Call<WalletInfoResponse> call, Response<WalletInfoResponse> response) {
+                if (response.isSuccessful()) {
+                    WalletInfoResponse userResponse = response.body();
+                    String tokensNumberText = tokensNumberTextView.getText().toString().split("\n")[0]
+                            + "\n" + userResponse.getBilance();
+                    tokensNumberTextView.setText(tokensNumberText);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<WalletInfoResponse> call, Throwable t) {
+                Toast.makeText(WalletActivity.this, t.toString(), Toast.LENGTH_LONG).show();
+            }
+
+        });
+    }
+
     public void backToMainActivity(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
-        builder.setMessage("Czy na pewno chcesz się wylogować?\nJeżeli nie posiadasz zapisanych seedów dostęp do portfela zostanie utracony");
+        builder.setMessage("Czy na pewno chcesz się wylogować?\n" +
+                "Jeżeli nie posiadasz zapisanych seedów dostęp do portfela zostanie utracony");
         builder.setPositiveButton("Wyloguj", (dialog, which) -> {
             preferences.edit().remove("user_id").remove("private_key").apply();
             Intent intent = new Intent(this, SignInActivity.class);
@@ -67,6 +110,18 @@ public class WalletActivity extends AppCompatActivity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public void changeToTransactionActivity(View view) {
+        Intent intent = new Intent(this, TransactionActivity.class);
+        startActivity(intent);
+    }
+
+    private void handleRefresh() {
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            getWalletInfo();
+            swipeRefreshLayout.setRefreshing(false);
+        });
     }
 
 }

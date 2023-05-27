@@ -1,5 +1,3 @@
-import base58
-from core.core import Core
 
 class TransactionService:
 
@@ -7,11 +5,9 @@ class TransactionService:
         self.core = core
 
     def create(self, transaction_body):
-        decode_id_from = base58.b58decode(transaction_body.id_from).decode('utf-8')
-        decode_id_to = base58.b58decode(transaction_body.id_to).decode('utf-8')
         
-        index1 = [index for index in range(len(self.core.users_id)) if self.core.users_id[index] == decode_id_from]
-        index2 = [index for index in range(len(self.core.users_id)) if self.core.users_id[index] == decode_id_to]
+        index1 = [index for index in range(len(self.core.users_id)) if self.core.users_id[index] == transaction_body.id_from]
+        index2 = [index for index in range(len(self.core.users_id)) if self.core.users_id[index] == transaction_body.id_to]
         
         if index1:
             if index2:
