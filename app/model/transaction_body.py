@@ -2,6 +2,6 @@ from pydantic import BaseModel
 
 
 class TransactionBody(BaseModel):
-    id_from: str
-    id_to: str
+    user_id_from: str
+    user_id_to: str
     amount: str

@@ -47,7 +47,7 @@ async def signin(user_signin_body: UserSigninBody, response: Response):
 
 
 @app.post("/transactions")
-async def verify_user(transaction_body: TransactionBody, response: Response):
+async def make_transaction(transaction_body: TransactionBody, response: Response):
     response_code, response_body = transaction_service.create(transaction_body)
     response.status_code = response_code
     return response_body
