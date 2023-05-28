@@ -8,10 +8,10 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="235dp"
-        android:layout_height="152dp"
-        android:src="@drawable/main_logo"
-        android:layout_marginTop="120dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/energy_reception"
+        android:layout_marginTop="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,7 +20,7 @@
         android:id="@+id/textView4"
         android:layout_width="350sp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="50dp"
         android:gravity="center"
         android:text="Rejestracja w systemie jest anonimowa nie musisz wprowadzać żadnych danych, wciśnij zarejestruj aby uzyskać swój unikalny identyfikator"
         android:textSize="20sp"
@@ -34,7 +34,7 @@
         android:id="@+id/button5"
         android:layout_width="250sp"
         android:layout_height="70sp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="60dp"
         android:onClick="signUp"
         android:text="Zarejestruj"
         android:textSize="20sp"

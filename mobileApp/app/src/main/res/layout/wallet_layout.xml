@@ -85,6 +85,7 @@
             android:layout_height="54dp"
             android:layout_marginTop="60dp"
             android:layout_marginEnd="40dp"
+            android:onClick="changeToEnergyReceptionActivity"
             android:text="Odbierz energię"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -96,9 +97,9 @@
             android:layout_height="54dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="40dp"
+            android:onClick="changeToTransactionActivity"
             android:text="Przelew"
             android:textSize="20sp"
-            android:onClick="changeToTransactionActivity"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button2" />
 

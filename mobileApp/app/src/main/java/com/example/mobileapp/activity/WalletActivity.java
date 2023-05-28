@@ -117,6 +117,11 @@ public class WalletActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void changeToEnergyReceptionActivity(View view) {
+        Intent intent = new Intent(this, EnergyReceptionActivity.class);
+        startActivity(intent);
+    }
+
     private void handleRefresh() {
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getWalletInfo();

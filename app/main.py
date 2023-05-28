@@ -1,3 +1,6 @@
+import time
+from threading import Thread
+
 import uvicorn
 import socket
 from fastapi import FastAPI, Response
@@ -20,6 +23,13 @@ transaction_service = TransactionService(core)
 @app.post("/tokens")
 async def create_token(energy_body: EnergyBody, response: Response):
     response_code, response_body = token_service.create(energy_body)
+    response.status_code = response_code
+    return response_body
+
+
+@app.post("/tokens/reception-code")
+async def create_token(energy_body: EnergyBody, response: Response):
+    response_code, response_body = token_service.generate_reception_code(energy_body)
     response.status_code = response_code
     return response_body
 
@@ -63,6 +73,13 @@ async def get_wallet(user_id: str):
     return core.wallet_to_json(user_id)
 
 
+def schedule_reception_codes_remover():
+    while True:
+        token_service.remove_expired_reception_codes()
+        time.sleep(1)
+
+
 if __name__ == "__main__":
+    thread = Thread(target=schedule_reception_codes_remover)
+    thread.start()
     uvicorn.run(app, host=socket.gethostbyname_ex(socket.getfqdn())[2][1], port=8080)
-    # uvicorn.run(app, port=8080)
