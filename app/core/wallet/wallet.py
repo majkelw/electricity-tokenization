@@ -149,24 +149,25 @@ class Wallet(NamedTuple):
     def to_json(self, wallet):
         json_struct = []
         
-        json_struct.append({"ID": wallet.user_id})
-        json_struct.append({"BILANCE": str(sum(wallet.bilance))})
-        json_struct.append({"ENERGY CONSUMPTED": str(sum(wallet.total_energy_consumpted))})
-        json_struct.append({"ENERGY PRODUCTED": str(sum(wallet.total_energy_producted))})
+        json_struct.append({"id": wallet.user_id})
+        json_struct.append({"bilance": str(sum(wallet.bilance))})
+        json_struct.append({"energy_consumpted": str(sum(wallet.total_energy_consumpted))})
+        json_struct.append({"energy_produced": str(sum(wallet.total_energy_producted))})
         
-        json_struct.append({"TOTAL TRANSACTIONS": str(len(wallet.transactions))})
-        json_struct.append({"TOTAL OPERATIONS": str(len(wallet.operations))})
+        json_struct.append({"total_transactions": str(len(wallet.transactions))})
+        json_struct.append({"total_operations": str(len(wallet.operations))})
 
         if wallet.transactions:
             id_cnt = 0
+            json_transaction = []
             for transaction in wallet.transactions:
-                json_transaction = []
                 json_transaction.append({"id": str(id_cnt), "from": transaction.from_, "to": transaction.to_, "amount": str(transaction.amount),
                                          "direction": transaction.direction, "time": transaction.time})                
-                json_struct.append({"TRANSACTION": json_transaction})
                 id_cnt += 1
+            json_struct.append({"transactions":json_transaction})
+                
         else:
-            json_struct.append({"TRANSACTIONS": []})
+            json_struct.append({"transactions": []})
 #
 #        if wallet.operations:
 #            id_cnt = 0
