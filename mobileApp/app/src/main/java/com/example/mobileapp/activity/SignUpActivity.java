@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mobileapp.R;
 import com.example.mobileapp.api.RetrofitHandler;
+import com.example.mobileapp.api.model.response.UserResponseModel;
 import com.example.mobileapp.api.service.UserService;
-import com.example.mobileapp.api.response.UserResponse;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -49,12 +49,12 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void signUp(View view) {
 
-        Call<UserResponse> call = userService.signUp(RequestBody.create(MediaType.parse("application/json"), ""));
-        call.enqueue(new Callback<UserResponse>() {
+        Call<UserResponseModel> call = userService.signUp(RequestBody.create(MediaType.parse("application/json"), ""));
+        call.enqueue(new Callback<UserResponseModel>() {
             @Override
-            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+            public void onResponse(Call<UserResponseModel> call, Response<UserResponseModel> response) {
                 if (response.isSuccessful()) {
-                    UserResponse userResponse = response.body();
+                    UserResponseModel userResponse = response.body();
                     saveKeyValuePair("user_id", userResponse.getUserId());
                     saveKeyValuePair("private_key", userResponse.getPrivateKey());
                     Toast.makeText(SignUpActivity.this, userResponse.getMessage(), Toast.LENGTH_LONG).show();
@@ -65,7 +65,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<UserResponse> call, Throwable t) {
+            public void onFailure(Call<UserResponseModel> call, Throwable t) {
                 Toast.makeText(SignUpActivity.this, t.toString(), Toast.LENGTH_LONG).show();
             }
         });

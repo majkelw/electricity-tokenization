@@ -17,7 +17,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.mobileapp.R;
 import com.example.mobileapp.api.RetrofitHandler;
-import com.example.mobileapp.api.response.WalletInfoResponse;
+import com.example.mobileapp.api.model.response.WalletInfoResponseModel;
 import com.example.mobileapp.api.service.WalletService;
 
 import retrofit2.Call;
@@ -75,12 +75,12 @@ public class WalletActivity extends AppCompatActivity {
     }
 
     private void getWalletInfo() {
-        Call<WalletInfoResponse> call = walletService.getWallet(userId);
-        call.enqueue(new Callback<WalletInfoResponse>() {
+        Call<WalletInfoResponseModel> call = walletService.getWallet(userId);
+        call.enqueue(new Callback<WalletInfoResponseModel>() {
             @Override
-            public void onResponse(Call<WalletInfoResponse> call, Response<WalletInfoResponse> response) {
+            public void onResponse(Call<WalletInfoResponseModel> call, Response<WalletInfoResponseModel> response) {
                 if (response.isSuccessful()) {
-                    WalletInfoResponse userResponse = response.body();
+                    WalletInfoResponseModel userResponse = response.body();
                     String tokensNumberText = tokensNumberTextView.getText().toString().split("\n")[0]
                             + "\n" + userResponse.getBilance();
                     tokensNumberTextView.setText(tokensNumberText);
@@ -88,7 +88,7 @@ public class WalletActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<WalletInfoResponse> call, Throwable t) {
+            public void onFailure(Call<WalletInfoResponseModel> call, Throwable t) {
                 Toast.makeText(WalletActivity.this, t.toString(), Toast.LENGTH_LONG).show();
             }
 

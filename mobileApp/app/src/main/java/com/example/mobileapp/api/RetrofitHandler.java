@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitHandler {
 
     private static Retrofit retrofit;
-    private final static String URL = "http://192.168.221.93";
+    private final static String URL = "http://192.168.1.31";
     private final static String PORT = "8080";
 
     public static Retrofit getInstance() {

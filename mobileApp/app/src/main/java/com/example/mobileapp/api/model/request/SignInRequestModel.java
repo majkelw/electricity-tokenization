@@ -1,9 +1,9 @@
-package com.example.mobileapp.api.body;
+package com.example.mobileapp.api.model.request;
 
-public class SignInBody {
+public class SignInRequestModel {
     private String words;
 
-    public SignInBody(String words) {
+    public SignInRequestModel(String words) {
         this.words = words;
     }
 

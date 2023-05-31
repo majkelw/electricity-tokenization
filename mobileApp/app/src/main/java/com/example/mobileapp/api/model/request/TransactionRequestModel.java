@@ -1,15 +1,15 @@
-package com.example.mobileapp.api.body;
+package com.example.mobileapp.api.model.request;
 
 import com.google.gson.annotations.SerializedName;
 
-public class TransactionBody {
+public class TransactionRequestModel {
     @SerializedName("user_id_from")
     private String userIdFrom;
     @SerializedName("user_id_to")
     private String userIdTo;
     private int amount;
 
-    public TransactionBody(String userIdFrom, String userIdTo, int amount) {
+    public TransactionRequestModel(String userIdFrom, String userIdTo, int amount) {
         this.userIdFrom = userIdFrom;
         this.userIdTo = userIdTo;
         this.amount = amount;

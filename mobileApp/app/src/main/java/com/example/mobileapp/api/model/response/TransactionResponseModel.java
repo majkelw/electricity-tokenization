@@ -1,6 +1,6 @@
-package com.example.mobileapp.api.response;
+package com.example.mobileapp.api.model.response;
 
-public class TransactionResponse {
+public class TransactionResponseModel {
     private String message;
 
     public String getMessage() {

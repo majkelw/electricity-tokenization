@@ -1,8 +1,8 @@
-package com.example.mobileapp.api.response;
+package com.example.mobileapp.api.model.response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UserResponse {
+public class UserResponseModel {
     @SerializedName("user_id")
     private String userId;
     @SerializedName("private_key")

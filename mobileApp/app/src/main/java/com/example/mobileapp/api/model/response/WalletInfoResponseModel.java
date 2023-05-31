@@ -1,8 +1,8 @@
-package com.example.mobileapp.api.response;
+package com.example.mobileapp.api.model.response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class WalletInfoResponse {
+public class WalletInfoResponseModel {
 
     private int bilance;
     @SerializedName("energy_consumpted")

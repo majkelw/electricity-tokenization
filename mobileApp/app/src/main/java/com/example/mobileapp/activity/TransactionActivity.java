@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mobileapp.R;
 import com.example.mobileapp.api.RetrofitHandler;
-import com.example.mobileapp.api.body.TransactionBody;
-import com.example.mobileapp.api.response.TransactionResponse;
+import com.example.mobileapp.api.model.request.TransactionRequestModel;
+import com.example.mobileapp.api.model.response.TransactionResponseModel;
 import com.example.mobileapp.api.service.TransactionService;
 
 import org.json.JSONException;
@@ -47,13 +47,13 @@ public class TransactionActivity extends AppCompatActivity {
 
     public void makeTransaction(View view) {
 
-        TransactionBody transactionBody = new TransactionBody(preferences.getString("user_id", null), toUserIdEditText.getText().toString(), Integer.parseInt(tokensNumberEditText.getText().toString()));
-        Call<TransactionResponse> call = transactionService.makeTransaction(transactionBody);
-        call.enqueue(new Callback<TransactionResponse>() {
+        TransactionRequestModel transactionBody = new TransactionRequestModel(preferences.getString("user_id", null), toUserIdEditText.getText().toString(), Integer.parseInt(tokensNumberEditText.getText().toString()));
+        Call<TransactionResponseModel> call = transactionService.makeTransaction(transactionBody);
+        call.enqueue(new Callback<TransactionResponseModel>() {
             @Override
-            public void onResponse(Call<TransactionResponse> call, Response<TransactionResponse> response) {
+            public void onResponse(Call<TransactionResponseModel> call, Response<TransactionResponseModel> response) {
                 if (response.isSuccessful()) {
-                    TransactionResponse userResponse = response.body();
+                    TransactionResponseModel userResponse = response.body();
                     Toast.makeText(TransactionActivity.this, userResponse.getMessage(), Toast.LENGTH_LONG).show();
                     finish();
                 } else {
@@ -67,7 +67,7 @@ public class TransactionActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<TransactionResponse> call, Throwable t) {
+            public void onFailure(Call<TransactionResponseModel> call, Throwable t) {
                 Toast.makeText(TransactionActivity.this, t.toString(), Toast.LENGTH_LONG).show();
             }
         });

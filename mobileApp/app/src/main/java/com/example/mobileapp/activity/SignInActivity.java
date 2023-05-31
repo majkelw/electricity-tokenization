@@ -13,9 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mobileapp.R;
 import com.example.mobileapp.api.RetrofitHandler;
+import com.example.mobileapp.api.model.response.UserResponseModel;
 import com.example.mobileapp.api.service.UserService;
-import com.example.mobileapp.api.body.SignInBody;
-import com.example.mobileapp.api.response.UserResponse;
+import com.example.mobileapp.api.model.request.SignInRequestModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,12 +51,12 @@ public class SignInActivity extends AppCompatActivity {
 
 
     public void signIn(View view) {
-        Call<UserResponse> call = userService.signIn(new SignInBody(seedEditText.getText().toString()));
-        call.enqueue(new Callback<UserResponse>() {
+        Call<UserResponseModel> call = userService.signIn(new SignInRequestModel(seedEditText.getText().toString()));
+        call.enqueue(new Callback<UserResponseModel>() {
             @Override
-            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+            public void onResponse(Call<UserResponseModel> call, Response<UserResponseModel> response) {
                 if (response.isSuccessful()) {
-                    UserResponse userResponse = response.body();
+                    UserResponseModel userResponse = response.body();
                     saveKeyValuePair("user_id", userResponse.getUserId());
                     saveKeyValuePair("private_key", userResponse.getPrivateKey());
                     Toast.makeText(SignInActivity.this, "Zalogowano", Toast.LENGTH_LONG).show();
@@ -76,7 +76,7 @@ public class SignInActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<UserResponse> call, Throwable t) {
+            public void onFailure(Call<UserResponseModel> call, Throwable t) {
                 Toast.makeText(SignInActivity.this, t.toString(), Toast.LENGTH_LONG).show();
 
             }
