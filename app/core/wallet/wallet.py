@@ -154,17 +154,17 @@ class Wallet(NamedTuple):
             json_transaction = []
             
             for transaction in wallet.transactions:
-                json_transaction.append({"id": str(id_cnt), "from": transaction.from_, "to": transaction.to_, "amount": str(transaction.amount),
+                json_transaction.append({"id": id_cnt, "from": transaction.from_, "to": transaction.to_, "amount": transaction.amount,
                                          "direction": transaction.direction, "time": transaction.time})                
                 id_cnt += 1
             
-            json_struct.append({"id": wallet.user_id, "bilance": str(sum(wallet.bilance)), "energy_consumpted": str(sum(wallet.total_energy_consumpted)),
-                                "energy_produced": str(sum(wallet.total_energy_producted)), "total_transactions": str(len(wallet.transactions)),
-                                "total_operations": str(len(wallet.operations)), "transactions": json_transaction})
+            json_struct = {"id": wallet.user_id, "bilance": sum(wallet.bilance), "energy_consumpted": sum(wallet.total_energy_consumpted),
+                                "energy_produced": sum(wallet.total_energy_producted), "total_transactions": len(wallet.transactions),
+                                "total_operations": len(wallet.operations), "transactions": json_transaction}
         else:
-            json_struct.append({"id": wallet.user_id, "bilance": str(sum(wallet.bilance)), "energy_consumpted": str(sum(wallet.total_energy_consumpted)),
-                                "energy_produced": str(sum(wallet.total_energy_producted)), "total_transactions": str(len(wallet.transactions)),
-                                "total_operations": str(len(wallet.operations)), "transactions": []})
+            json_struct = {"id": wallet.user_id, "bilance": sum(wallet.bilance), "energy_consumpted": sum(wallet.total_energy_consumpted),
+                                "energy_produced": sum(wallet.total_energy_producted), "total_transactions": len(wallet.transactions),
+                                "total_operations": len(wallet.operations), "transactions": []}
 #
 #        if wallet.operations:
 #            id_cnt = 0
@@ -180,7 +180,7 @@ class Wallet(NamedTuple):
 #        else:
 #            json_struct.append({"OPERATIONS": "EMPTY"})
 #
-        return {"wallet": json_struct}
+        return json_struct
 
 
 
