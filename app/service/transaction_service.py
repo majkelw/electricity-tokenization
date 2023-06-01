@@ -13,7 +13,7 @@ class TransactionService:
             if index2:
                 state = self.core.add_transaction(self.core.users_id[index1[0]], self.core.users_id[index2[0]], float(transaction_body.amount))
                 if state.value == self.core.CoreStats.STATE_OK.value:
-                    return 201, {"message": "Dokonano transakcji"}
+                    return 201, {"message": "Wysłano"}
                 else:
                     return 400, {"message": "Niepoprawna liczba tokenów"}
             else:

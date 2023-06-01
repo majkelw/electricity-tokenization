@@ -4,11 +4,13 @@ from threading import Thread
 import uvicorn
 import socket
 from fastapi import FastAPI, Response
+
+from model.token_deletion_body import TokenDeletionBody
 from model.transaction_body import TransactionBody
+from model.user_id_body import UserIdBody
 from model.user_signin_body import UserSigninBody
 from service.transaction_service import TransactionService
 from service.user_service import UserService
-from model.energy_body import EnergyBody
 from service.token_service import TokenService
 from core.core import Core
 
@@ -21,15 +23,22 @@ transaction_service = TransactionService(core)
 
 
 @app.post("/tokens")
-async def create_token(energy_body: EnergyBody, response: Response):
-    response_code, response_body = token_service.create(energy_body)
+async def create_token(user_id_body: UserIdBody, response: Response):
+    response_code, response_body = token_service.create(user_id_body)
+    response.status_code = response_code
+    return response_body
+
+
+@app.delete("/tokens")
+async def create_token(token_deletion_body: TokenDeletionBody, response: Response):
+    response_code, response_body = token_service.delete(token_deletion_body)
     response.status_code = response_code
     return response_body
 
 
 @app.post("/tokens/reception-code")
-async def create_token(energy_body: EnergyBody, response: Response):
-    response_code, response_body = token_service.generate_reception_code(energy_body)
+async def create_token(user_id_body: UserIdBody, response: Response):
+    response_code, response_body = token_service.generate_reception_code(user_id_body)
     response.status_code = response_code
     return response_body
 

@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
 
-class EnergyBody(BaseModel):
+class UserIdBody(BaseModel):
     user_id: str

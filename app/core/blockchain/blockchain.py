@@ -1,6 +1,6 @@
 import hashlib
 from enum import Enum
-
+from core.blockchain.pool import poolParam
 
 from core.blockchain.block import Block
 
@@ -14,7 +14,6 @@ class Blockchain:
         # try to read blocks
         while True:
             state, block = Block.read_block(len(self.blocks))  # start from index 0
-            print(state)
             if state == Block.BlockStats.STATE_OK:
                 self.blocks.append(block)
             else:
@@ -64,6 +63,21 @@ class Blockchain:
             return self.BlockchainStats.STATE_OK, self.blocks[block_id]
         else:
             return self.BlockchainStats.BLOCK_NOT_EXIST, None
+
+    def is_token_deleted(self, token):
+        for block in self.blocks:
+            for pool in block.pools:
+                if pool.param == poolParam.dTOKEN.value and pool.id_1 == token:
+                    return True
+        return False
+
+    def find_first_not_deleted_user_token(self, user_id):
+        for block in self.blocks:
+            for pool in block.pools:
+                if pool.param == poolParam.nTOKEN.value and pool.id_2 == user_id:
+                    if not self.is_token_deleted(pool.id_1):
+                        return pool.id_1
+        return None
 
     def to_json(self):
         blocks = []

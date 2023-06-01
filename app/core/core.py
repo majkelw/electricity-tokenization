@@ -104,7 +104,7 @@ class Core:
 
                 state, new_pool = Pool.construct(user1_id, poolParam.SEND.value, user2_id, amount, str(now), self.HASH)
                 state = self.blockchain.add_pool(new_pool)
-                
+
                 return (self.CoreStats.STATE_OK)
             else:
                 return (self.CoreStats.WALLET_NOT_EXIST)
@@ -180,7 +180,7 @@ class Core:
             return (self.CoreStats.STATE_OK)
         else:
             return (self.CoreStats.USER_EXIST)
-            
+
     def wallet_to_json(self, user_id):
 
         index1 = [index for index in range(len(self.users_id)) if self.users_id[index] == user_id]
@@ -189,6 +189,5 @@ class Core:
             return Wallet.to_json(self.wallets[index1[0]])
         else:
             return {"wallet": "No exist"}
-        #except Exception:
+        # except Exception:
         #    return {"wallet": "Invalid User"}
-
