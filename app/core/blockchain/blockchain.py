@@ -1,7 +1,6 @@
 import hashlib
 from enum import Enum
-
-import base58
+from core.blockchain.pool import poolParam
 
 from core.blockchain.block import Block
 
@@ -15,7 +14,6 @@ class Blockchain:
         # try to read blocks
         while True:
             state, block = Block.read_block(len(self.blocks))  # start from index 0
-            print(state)
             if state == Block.BlockStats.STATE_OK:
                 self.blocks.append(block)
             else:
@@ -66,6 +64,21 @@ class Blockchain:
         else:
             return self.BlockchainStats.BLOCK_NOT_EXIST, None
 
+    def is_token_deleted(self, token):
+        for block in self.blocks:
+            for pool in block.pools:
+                if pool.param == poolParam.dTOKEN.value and pool.id_1 == token:
+                    return True
+        return False
+
+    def find_first_not_deleted_user_token(self, user_id):
+        for block in self.blocks:
+            for pool in block.pools:
+                if pool.param == poolParam.nTOKEN.value and pool.id_2 == user_id:
+                    if not self.is_token_deleted(pool.id_1):
+                        return pool.id_1
+        return None
+
     def to_json(self):
         blocks = []
         block_number = 0
@@ -73,9 +86,9 @@ class Blockchain:
         for block in self.blocks:
             pools = []
             for pool in block.pools:
-                pools.append({"id_1": base58.b58encode(pool.id_1), "id_2": base58.b58encode(pool.id_2),
-                              "id_3": base58.b58encode(pool.id_3), "param": pool.param, "amount": pool.amount})
-            blocks.append({"begin_hash": base58.b58encode(block.beginHash), "pools": pools,
-                           "end_hash": base58.b58encode(block.endHash)})
+                pools.append({"id_1": pool.id_1, "id_2": pool.id_2,
+                              "id_3": pool.id_3, "param": pool.param, "amount": pool.amount})
+            blocks.append({"begin_hash": block.beginHash, "pools": pools,
+                           "end_hash": block.endHash})
             block_number += 1
         return {"blocks": blocks}

@@ -181,6 +181,3 @@ class Wallet(NamedTuple):
 #            json_struct.append({"OPERATIONS": "EMPTY"})
 #
         return json_struct
-
-
-

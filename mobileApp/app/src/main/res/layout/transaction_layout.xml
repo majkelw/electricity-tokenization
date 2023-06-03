@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SeedActivity">
+    tools:context=".activity.TransactionActivity">
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="235dp"
-        android:layout_height="152dp"
-        android:src="@drawable/main_logo"
-        android:layout_marginTop="120dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/wallet_token_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,9 +20,8 @@
         android:id="@+id/textView4"
         android:layout_width="350sp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="Jeżeli posiadasz konto i chcesz zalogować się z innego urządzenia poniżej wpisz 24 zapisane słowa, oddzielone spacjami, wygenerowane podczas rejestracji"
+        android:layout_marginTop="70dp"
+        android:text="Identyfikator odbiorcy"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,30 +30,53 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/toUserIdEditText"
         android:layout_width="350sp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="1dp"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="pigeon solve indoor dwarf consider ramp order venture estate search sunset buddy hold grocery advance loan tank own olympic crystal upper people popular all"
-        android:inputType="textMultiLine"
+        android:hint="Wpisz identyfikator odbiorcy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="350sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Liczba tokenów do przesłania"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toUserIdEditText" />
+
+    <EditText
+        android:id="@+id/tokensNumberEditText"
+        android:layout_width="350sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Wpisz liczbę tokenów"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
     <Button
-        android:id="@+id/btn_seed_ok"
         android:layout_width="250sp"
         android:layout_height="70sp"
-        android:layout_marginTop="32dp"
-        android:onClick="openWalletLayout"
-        android:text="Zaloguj"
+        android:layout_marginTop="60dp"
+        android:text="Wyślij"
         android:textSize="20sp"
+        android:onClick="makeTransaction"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine" />
+        app:layout_constraintTop_toBottomOf="@+id/tokensNumberEditText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

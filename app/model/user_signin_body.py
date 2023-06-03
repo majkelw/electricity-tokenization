@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
 
-class UserRecoveryBody(BaseModel):
+class UserSigninBody(BaseModel):
     words: str
