@@ -2,14 +2,14 @@ package com.example.mobileapp.api.model.response;
 
 public class TransactionsHistoryResponseModel {
 
-    private String id;
+    private int id;
     private String from;
     private String to;
-    private String amount;
+    private float amount;
     private String direction;
     private String time;
 
-    public String getId(){
+    public int getId(){
         return id;
     }
     public String getFrom() {
@@ -19,7 +19,7 @@ public class TransactionsHistoryResponseModel {
     public String getTo (){
         return to;
     }
-    public String getAmount()
+    public float getAmount()
     {
         return amount;
     }

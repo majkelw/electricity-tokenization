@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mobileapp.R;
 import com.example.mobileapp.api.RetrofitHandler;
+import com.example.mobileapp.api.model.response.TransactionsHistoryResponseModel;
 import com.example.mobileapp.api.model.response.WalletInfoResponseModel;
 import com.example.mobileapp.api.service.WalletService;
 
@@ -22,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -66,6 +68,8 @@ public class HistoryActivity extends AppCompatActivity {
     private String userId;
     private SharedPreferences preferences;
 
+    private List<TransactionsHistoryResponseModel> transHistory;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +83,8 @@ public class HistoryActivity extends AppCompatActivity {
          adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,output);
         historyView.setAdapter(adapter);
 
-        showListBasedOnJSONString();
-
+        //showListBasedOnJSONString() 
+        getWalletInfo();
     }
     private void showListBasedOnJSONString()
     {
@@ -93,7 +97,7 @@ public class HistoryActivity extends AppCompatActivity {
                 String id = obj.getString("id");
                 String from = obj.getString("from");
                 String to = obj.getString("to");
-                String amount = obj.getString("amount");
+                String amount =  obj.getString("amount");
                 String direction = obj.getString("direction");
                 String time = obj.getString("time");
 
@@ -115,6 +119,34 @@ public class HistoryActivity extends AppCompatActivity {
         }
         adapter.notifyDataSetChanged();
     }
+    private void showHistoryList()
+    {
+
+        int length = transHistory.size();
+        for ( int i = 0 ; i < length; i++){
+           TransactionsHistoryResponseModel obj = transHistory.get(i);
+
+            int id = obj.getId();
+            String from = obj.getFrom();
+            String to = obj.getTo();
+            float amount = obj.getAmount();
+            String direction = obj.getDirection();
+            String time = obj.getTime();
+
+            String firstLine = "";
+            if(direction.equals("IN"))
+            {
+                firstLine ="Transakcja przychodząca \n " +"Od: " + from;
+            }
+            else if(direction.equals("OUT"))
+            {
+                firstLine ="Transakcja wychodząca \n"+ "Do: " +to;
+            }
+
+            String output_item = firstLine + "\n Id: "+ id+ "\n" + "Ilość "+ amount+ " \n"+ time+ "\n";
+            output.add(output_item);
+        }
+    }
 
     private void getWalletInfo() {
         userId = preferences.getString("user_id", null);
@@ -124,11 +156,8 @@ public class HistoryActivity extends AppCompatActivity {
             public void onResponse(Call<WalletInfoResponseModel> call, Response<WalletInfoResponseModel> response) {
                 if (response.isSuccessful()) {
                     WalletInfoResponseModel userResponse = response.body();
-                  //  String tokensNumberText = tokensNumberTextView.getText().toString().split("\n")[0]
-                 //           + "\n" + userResponse.getBilance();
-                  //  tokensNumberTextView.setText(tokensNumberText);
-
-                    Toast.makeText(HistoryActivity.this, "Transakcje"+userResponse.getTransactionsStr(), Toast.LENGTH_LONG).show();
+                    transHistory = userResponse.getTransactionsHis();
+                    showHistoryList();
                 }
             }
 
@@ -136,7 +165,6 @@ public class HistoryActivity extends AppCompatActivity {
             public void onFailure(Call<WalletInfoResponseModel> call, Throwable t) {
                 Toast.makeText(HistoryActivity.this, t.toString(), Toast.LENGTH_LONG).show();
             }
-
         });
     }
 
