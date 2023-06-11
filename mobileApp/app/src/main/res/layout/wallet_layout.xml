@@ -31,7 +31,7 @@
             android:id="@+id/imageView3"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="70dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +42,7 @@
             android:id="@+id/tokensNumberTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="30dp"
             android:gravity="center"
             android:text="Liczba tokenów\n0"
             android:textSize="24sp"
@@ -80,24 +80,42 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
+        <TextView
+            android:id="@+id/qrTextView"
+            android:layout_width="300sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:gravity="center"
+            android:text="Wygeneruj kod QR dla identyfikatora"
+            android:textColor="#3F51B5"
+            android:textIsSelectable="true"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:onClick="changeToQRCodeActivity"
+            android:clickable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userIdTextView" />
+
         <Button
             android:id="@+id/button2"
             android:layout_width="200dp"
             android:layout_height="54dp"
             android:layout_marginTop="60dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="56dp"
             android:onClick="changeToEnergyReceptionActivity"
             android:text="Odbierz energię"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userIdTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/qrTextView" />
 
         <Button
             android:id="@+id/button4"
             android:layout_width="200dp"
             android:layout_height="54dp"
-            android:layout_marginTop="36dp"
-            android:layout_marginEnd="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="52dp"
+
             android:onClick="changeToTransactionActivity"
             android:text="Przelew"
             android:textSize="18sp"
@@ -106,51 +124,48 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginTop="60dp"
+            android:layout_marginStart="30dp"
             app:layout_constraintEnd_toStartOf="@+id/button2"
-            app:layout_constraintHorizontal_bias="0.684"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userIdTextView"
+            app:layout_constraintTop_toBottomOf="@+id/qrTextView"
             app:srcCompat="@drawable/solar_icon" />
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toStartOf="@+id/button4"
-            app:layout_constraintHorizontal_bias="0.684"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
             app:srcCompat="@drawable/send_icon" />
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="108dp"
-            app:layout_constraintEnd_toStartOf="@+id/button4"
-            app:layout_constraintHorizontal_bias="0.684"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="28dp"
+            app:layout_constraintEnd_toStartOf="@+id/button7"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
             app:srcCompat="@drawable/history" />
 
         <Button
             android:id="@+id/button7"
             android:layout_width="200dp"
             android:layout_height="54dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="52dp"
             android:onClick="changeToHistoryActivity"
             android:text="Historia transakcji"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/button4"
-            app:layout_constraintTop_toBottomOf="@+id/button4"
-            app:layout_constraintVertical_bias="0.012" />
+            app:layout_constraintTop_toBottomOf="@+id/button4" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

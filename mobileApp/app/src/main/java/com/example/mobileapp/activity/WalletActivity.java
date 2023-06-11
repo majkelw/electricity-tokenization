@@ -122,6 +122,10 @@ public class WalletActivity extends AppCompatActivity {
         startActivity(new Intent(this, HistoryActivity.class));
     }
 
+    public void changeToQRCodeActivity(View view) {
+        startActivity(new Intent(this, QRCodeActivity.class));
+    }
+
     private void handleRefresh() {
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getWalletInfo();

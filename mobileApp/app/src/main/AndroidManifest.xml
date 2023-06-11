@@ -41,6 +41,9 @@
         <activity
             android:name=".activity.EnergyReceptionActivity"
             android:exported="true"></activity>
+        <activity
+            android:name=".activity.QRCodeActivity"
+            android:exported="true"></activity>
     </application>
 
 </manifest>
