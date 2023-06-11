@@ -5,30 +5,31 @@ public class TransactionsHistoryResponseModel {
     private int id;
     private String from;
     private String to;
-    private float amount;
+    private int amount;
     private String direction;
     private String time;
 
-    public int getId(){
+    public int getId() {
         return id;
     }
+
     public String getFrom() {
         return from;
     }
 
-    public String getTo (){
+    public String getTo() {
         return to;
     }
-    public float getAmount()
-    {
+
+    public int getAmount() {
         return amount;
     }
-    public String getDirection()
-    {
+
+    public String getDirection() {
         return direction;
     }
-    public String getTime()
-    {
+
+    public String getTime() {
         return time;
     }
 

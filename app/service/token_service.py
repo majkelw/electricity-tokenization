@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 
 class TokenService:
-    RECEPTION_CODE_DURATION_SECONDS = 10
+    RECEPTION_CODE_DURATION_SECONDS = 120
     energy_reception_codes_data = []
 
     def __init__(self, core):

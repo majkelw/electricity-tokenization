@@ -4,7 +4,7 @@ from typing import NamedTuple
 class Transaction(NamedTuple):
     from_: str
     to_: str
-    amount: float
+    amount: int
     direction: str
     time: str
     
@@ -16,7 +16,7 @@ class Transaction(NamedTuple):
     def construct(self, from_, to_, amount, direction, time_):
         if (len(from_) == self.HASH_LEN and
             len(to_) == self.HASH_LEN and
-            amount > 0.0):
+            amount > 0):
             transaction = Transaction(from_, to_, amount, direction, time_)
             return (self.TransactionStats.STATE_OK, transaction)
         else:

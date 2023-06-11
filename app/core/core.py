@@ -32,8 +32,8 @@ class Core:
                     wallet_id += 1
 
                 elif pool.param == 0:
-                    state, transaction1 = Transaction.construct(pool.id_1, pool.id_2, pool.amount, 'OUT', str(now))
-                    state, transaction2 = Transaction.construct(pool.id_1, pool.id_2, pool.amount, 'IN', str(now))
+                    state, transaction1 = Transaction.construct(pool.id_1, pool.id_2, pool.amount, 'OUT', pool.time)
+                    state, transaction2 = Transaction.construct(pool.id_1, pool.id_2, pool.amount, 'IN', pool.time)
 
                     index1 = [index for index in range(len(self.users_id)) if self.users_id[index] == pool.id_1]
                     index2 = [index for index in range(len(self.users_id)) if self.users_id[index] == pool.id_2]

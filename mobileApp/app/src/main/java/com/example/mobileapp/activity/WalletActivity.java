@@ -63,8 +63,7 @@ public class WalletActivity extends AppCompatActivity {
     private void showSeedInDialog(String seed) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("ZAPISZ WYGENEROWANE SŁOWA!");
-        builder.setMessage(seed + "\n\nTe 24 słowa będą potrzebne, gdy będziesz chciał zalogować się na innym urządzeniu\n" +
-                "Kliknij OK, aby je automatycznie skopiować");
+        builder.setMessage(seed + "\n\nTe 24 słowa będą potrzebne, gdy będziesz chciał zalogować się na innym urządzeniu\n" + "Kliknij OK, aby je automatycznie skopiować");
         builder.setPositiveButton("OK", (dialog, which) -> {
             ClipboardManager clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clipData = ClipData.newPlainText("Label", seed);
@@ -81,8 +80,7 @@ public class WalletActivity extends AppCompatActivity {
             public void onResponse(Call<WalletInfoResponseModel> call, Response<WalletInfoResponseModel> response) {
                 if (response.isSuccessful()) {
                     WalletInfoResponseModel userResponse = response.body();
-                    String tokensNumberText = tokensNumberTextView.getText().toString().split("\n")[0]
-                            + "\n" + userResponse.getBilance();
+                    String tokensNumberText = tokensNumberTextView.getText().toString().split("\n")[0] + "\n" + userResponse.getBilance();
                     tokensNumberTextView.setText(tokensNumberText);
                 }
             }
@@ -98,8 +96,8 @@ public class WalletActivity extends AppCompatActivity {
     public void backToMainActivity(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
-        builder.setMessage("Czy na pewno chcesz się wylogować?\n" +
-                "Jeżeli nie posiadasz zapisanych seedów dostęp do portfela zostanie utracony");
+        builder.setMessage("Czy na pewno chcesz się wylogować?\n"
+                + "Jeżeli nie posiadasz zapisanych seedów dostęp do portfela zostanie utracony");
         builder.setPositiveButton("Wyloguj", (dialog, which) -> {
             preferences.edit().remove("user_id").remove("private_key").apply();
             Intent intent = new Intent(this, SignInActivity.class);
@@ -113,13 +111,15 @@ public class WalletActivity extends AppCompatActivity {
     }
 
     public void changeToTransactionActivity(View view) {
-        Intent intent = new Intent(this, TransactionActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, TransactionActivity.class));
     }
 
     public void changeToEnergyReceptionActivity(View view) {
-        Intent intent = new Intent(this, EnergyReceptionActivity.class);
-        startActivity(intent);
+        startActivity(new Intent(this, EnergyReceptionActivity.class));
+    }
+
+    public void changeToHistoryActivity(View view) {
+        startActivity(new Intent(this, HistoryActivity.class));
     }
 
     private void handleRefresh() {
@@ -127,12 +127,6 @@ public class WalletActivity extends AppCompatActivity {
             getWalletInfo();
             swipeRefreshLayout.setRefreshing(false);
         });
-    }
-
-    public void goToHistoryActivity (View view)
-    {
-        Intent intent = new Intent(this, HistoryActivity.class);
-        startActivity(intent);
     }
 
 }

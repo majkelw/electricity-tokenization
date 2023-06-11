@@ -62,14 +62,16 @@ public class EnergyReceptionActivity extends AppCompatActivity {
                     handler = new Handler(Looper.getMainLooper());
                     timerRunnable = new Runnable() {
                         int duration = receptionCodeResponseModel.getValidDurationSeconds();
+
                         @Override
                         public void run() {
                             if (duration == 0) {
-                                validDurationTextView.setText(String.valueOf(0));
+                                validDurationTextView.setText("Kod ważny jeszcze przez 0 sekund");
                                 finish();
                                 return;
                             }
-                            validDurationTextView.setText(String.valueOf(duration));
+
+                            validDurationTextView.setText("Kod ważny jeszcze przez " + duration + " sekund");
                             duration--;
                             handler.postDelayed(this, 1000);
                         }

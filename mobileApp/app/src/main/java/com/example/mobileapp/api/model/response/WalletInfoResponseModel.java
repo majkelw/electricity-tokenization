@@ -16,10 +16,7 @@ public class WalletInfoResponseModel {
     @SerializedName("total_operations")
     private int totalOperations;
 
-    @SerializedName("transactions")
-    private List<TransactionsHistoryResponseModel> transactionsHis;
-
-    private String transctionStr;
+    private List<TransactionsHistoryResponseModel> transactions;
 
     public int getBilance() {
         return bilance;
@@ -61,11 +58,11 @@ public class WalletInfoResponseModel {
         this.totalOperations = totalOperations;
     }
 
-    public String getTransactionsStr(){return transctionStr;}
-
-    public List<TransactionsHistoryResponseModel> getTransactionsHis()
-    {
-        return transactionsHis;
+    public List<TransactionsHistoryResponseModel> getTransactions() {
+        return transactions;
     }
 
+    public void setTransactions(List<TransactionsHistoryResponseModel> transactions) {
+        this.transactions = transactions;
+    }
 }

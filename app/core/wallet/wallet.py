@@ -144,40 +144,34 @@ class Wallet(NamedTuple):
         str_ += str(x)
 
         return (self.WalletStats.STATE_OK, str_)
-        
+
     @classmethod
     def to_json(self, wallet):
-        json_struct = []
 
-        if wallet.transactions:
-            id_cnt = 0
-            json_transaction = []
-            
-            for transaction in wallet.transactions:
-                json_transaction.append({"id": id_cnt, "from": transaction.from_, "to": transaction.to_, "amount": transaction.amount,
-                                         "direction": transaction.direction, "time": transaction.time})                
-                id_cnt += 1
-            
-            json_struct = {"id": wallet.user_id, "bilance": sum(wallet.bilance), "energy_consumpted": sum(wallet.total_energy_consumpted),
-                                "energy_produced": sum(wallet.total_energy_producted), "total_transactions": len(wallet.transactions),
-                                "total_operations": len(wallet.operations), "transactions": json_transaction}
-        else:
-            json_struct = {"id": wallet.user_id, "bilance": sum(wallet.bilance), "energy_consumpted": sum(wallet.total_energy_consumpted),
-                                "energy_produced": sum(wallet.total_energy_producted), "total_transactions": len(wallet.transactions),
-                                "total_operations": len(wallet.operations), "transactions": []}
-#
-#        if wallet.operations:
-#            id_cnt = 0
-#            for operation in wallet.operations:
-#                json_operation = []
-#                json_operation.append({"ID": str(id_cnt)})
-#                json_operation.append({"FROM": operation.from_})
-#                json_operation.append({"AMOUNT": str(operation.amount)})
-#                json_operation.append({"OP TYPE": operation.op_type})
-#                json_operation.append({"TIME": operation.time})
-#                
-#                json_struct.append({"OPERATION": json_operation})
-#        else:
-#            json_struct.append({"OPERATIONS": "EMPTY"})
-#
-        return json_struct
+        json_transaction = []
+        for index, transaction in enumerate(wallet.transactions):
+            if transaction is not None:
+                json_transaction.append(
+                    {"id": index + 1, "from": transaction.from_, "to": transaction.to_, "amount": transaction.amount,
+                     "direction": transaction.direction, "time": transaction.time})
+
+        return {"id": wallet.user_id, "bilance": sum(wallet.bilance),
+                "energy_consumpted": sum(wallet.total_energy_consumpted),
+                "energy_produced": sum(wallet.total_energy_producted),
+                "total_transactions": len(wallet.transactions),
+                "total_operations": len(wallet.operations), "transactions": json_transaction}
+        #
+        #        if wallet.operations:
+        #            id_cnt = 0
+        #            for operation in wallet.operations:
+        #                json_operation = []
+        #                json_operation.append({"ID": str(id_cnt)})
+        #                json_operation.append({"FROM": operation.from_})
+        #                json_operation.append({"AMOUNT": str(operation.amount)})
+        #                json_operation.append({"OP TYPE": operation.op_type})
+        #                json_operation.append({"TIME": operation.time})
+        #
+        #                json_struct.append({"OPERATION": json_operation})
+        #        else:
+        #            json_struct.append({"OPERATIONS": "EMPTY"})
+        #
