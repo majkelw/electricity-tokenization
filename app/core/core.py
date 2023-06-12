@@ -121,17 +121,37 @@ class Core:
             state, new_pool = Pool.construct(token, poolParam.nTOKEN.value, userID, 1, str(now), self.HASH)
             state = self.blockchain.add_pool(new_pool)
 
+            # Ustal proporcje generowanych tokenów w zależności od pory roku
+            current_month = datetime.datetime.now().month
+
+            token_ratios = {
+                1: 15.2,
+                2: 5.0,
+                3: 1.7,
+                4: 1.5,
+                5: 1.1,
+                6: 1.0,
+                7: 1.1,
+                8: 1.4,
+                9: 1.9,
+                10: 3.0,
+                11: 10.1,
+                12: 71.4
+            }
+
+            token_amount = token_ratios.get(current_month, 1.0)
+
             state, wallet1 = Wallet.read_wallet(index1[0])
-            state, operation1 = Operation.construct(userID, 1, 'NEW TOKEN', str(now))
+            state, operation1 = Operation.construct(userID, token_amount, 'NEW TOKEN', str(now))
             state = Wallet.add_operation(wallet1, operation1)
-            state = Wallet.add_amount(wallet1, 1)
+            state = Wallet.add_amount(wallet1, token_amount)
             state = Wallet.save_wallet(wallet1, index1[0])
             self.wallets[index1[0]] = wallet1
             self.tokens.append(token)
 
-            return (self.CoreStats.STATE_OK)
+            return self.CoreStats.STATE_OK
         else:
-            return (self.CoreStats.USER_NOT_EXIST)
+            return self.CoreStats.USER_NOT_EXIST
 
     def delete_token(self, token, userID):
         now = datetime.datetime.now()
